@@ -4,9 +4,12 @@
   padding: 0;
   /* border: 1px solid red; */
 }
+body {
+  cursor: url('images/cursors/cursor.gif'), auto;
+}
 .stone {
   background-color: black;
-  background-image: url("images/textures/DUNGEONBRICKSNEW.png");
+  background-image: url("images/textures/stone-texture.png");
   background-size: contain;
   background-repeat: repeat;
   background-position: center;
@@ -56,17 +59,15 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-position: center;
-  background-repeat: repeat;
 }
 #column-left {
   flex: 1;
   background-size: 50%;
-  background-image: url("images/textures/pattern-repeat.png");
-  
+  background-image: url("images/backgrounds/background-left.png");
+  background-size: cover;
+  background-position: center;
 }
 #column-middle {
-  /* padding-top: 5vh; */
   flex: 1.5;
   background-image: url("images/textures/pattern-repeat-darker.png");
   background-size: 35%;
@@ -75,7 +76,10 @@ main {
 #column-right {
   padding-top: 5vh;
   flex: 0.75;
-  background-image: url("images/textures/pattern-repeat-darkest.png");
+  background-image: url("images/backgrounds/background-store.png");
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position: top left;
   background-size: 75%;
 }
 #middleTop {
@@ -83,30 +87,44 @@ main {
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  /* background-position: center; */
+  background-image: url("images/backgrounds/menu-background.png");
+  background-position: center;
+  background-size: cover;
+
 }
 
 .column-divider {
   position: relative;
+  z-index: 2;
   width: 1vw;
-  background-image: url("images/textures/TRUNKS.png");
+  background-image: url("images/textures/dividers/divider-col-right.png");
   background-size: contain;
   background-repeat: repeat-y;
   background-position: center;
   box-shadow: -1px 0 .4em #191919, 1px 0px 0.4em #191919;
 }
 .panel-menu {
-  /* border: 1px solid red; */
   height: 10vh;
-  width: 6vw;
-  background-image: url('images/textures/wood-panel-right.png');
-  background-size: cover;
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+.menu-img  {
+  position: absolute;
+  align-self: flex-end;
+  height: 10vh;
+}
+#menu-img-left {
+  align-self: flex-start;
+}
+.menu-button {
+  z-index: 1;
+  width: 80%;
+  align-self: center;
+}
+
 .panel-menu button {
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0);
   border: none;
   color: #D4D5D5;
@@ -116,19 +134,17 @@ main {
   font-size: 0.75rem;
 }
 .panel-menu button:hover {
-  cursor: pointer;
+  cursor: url('images/cursors/cursor_open.gif'), pointer;
 }
 .panel-menu:hover {
   filter: brightness(1.25);
 }
-#panel-left {
-  background-image: url('images/textures/wood-panel-left.png');
-}
+
 .row-divider {
   position: relative;
   height: 2vh;
   width: 100%;
-  background-image: url("images/textures/TRUNKS-ROW.png");
+  background-image: url("images/textures/dividers/divider-row.png");
   background-size: contain;
   background-repeat: repeat-x;
   background-position: center;
@@ -145,8 +161,6 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
- 
-  
 }
 
 .column-header {
@@ -155,13 +169,31 @@ main {
 }
 #weapon_icon {
   user-select: none;
-  cursor: pointer;
+  cursor: url('images/cursors/cursor_open.gif'), pointer;
   height: 20vh;
   border-radius: 1rem;
   box-shadow: 2px 2px 5px #642209;
   border: 0.5rem inset  rgba(40,45,48, 0.9);
+  -webkit-animation-duration: 1.25s;
+  animation-duration: 1.25s; 
+  -webkit-animation-fill-mode: both; 
+  animation-fill-mode: both; 
+}
+@-webkit-keyframes bounce { 
+  0%, 20%, 50%, 80%, 100% {transform: scale(1.05);} 
+  40% {transform: scale(0.95);} 
+  60% {transform: scale(1);}  
+} 
+@keyframes bounce { 
+  0%, 20%, 50%, 80%, 100% {transform: scale(1.05);} 
+  40% {transform: scale(0.95);} 
+  60% {transform: scale(1);} 
 }
 
+.bounce:hover { 
+  -webkit-animation-name: bounce; 
+  animation-name: bounce; 
+}
 .counter-container {
   font-size: 30px;
 }
@@ -207,7 +239,7 @@ main {
   border: 0.2em inset rgba(51, 140, 107, 0.25);
   background-color: #003823;
   color: #D4D5D5;
-  cursor: pointer; 
+  cursor: url('images/cursors/cursor_open.gif'), pointer;
 }
 .producer:hover {
   filter: brightness(1.20)
@@ -264,6 +296,7 @@ footer a {
   border: none;
   color: #D4D5D5;
   font-weight: bold;
+  margin-top: 5vh;
   margin-bottom: 1vh;
 }
 
@@ -273,7 +306,6 @@ footer a {
 }
 
 .producer-progress {
-  border: 1px solid red;
   display: flex;
   height: 15vh;
   padding: 1vh;
@@ -301,4 +333,31 @@ footer a {
   padding: 0.4rem;
   text-shadow: 1px 1px rgba(25, 25, 25, 0.75);
   box-shadow: 1px 1px 1px black;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #00000071; 
+  background-image: url('images/textures/DUNGEONBRICKSNEW.png');
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  background-image: url('images/textures/BIGTRUNK.png');
+  background-size: contain;
+  border-radius: 1rem;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  filter: brightness(10%);
+  filter: invert(100%);
+  box-shadow: 2px 5px 5px #D4D5D5; 
 }
