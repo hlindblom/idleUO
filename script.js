@@ -10,8 +10,8 @@ function updateXPView(xp) {
 }
 
 function clickWeapon(data) {
-  updateXPView(++data.xp);
-  renderProducers(data);
+  updateXPView(++data.totalXP);
+  // renderProducers(data);
 }
 
 /**************
@@ -181,15 +181,15 @@ function buyButtonClick(event, data) {
 }
 
 function tick(data) {
-  data.coffee += data.totalCPS;
-  updateXPView(data.xp);
-  renderProducers(data);
-  renderProducersProgress(data);
-  if (typeof process === "undefined") {
-    // updateLocalStorage(data);
-    const titleTag = document.querySelector("title");
-    titleTag.innerText = `${data.coffee} - UO`;
-  }
+  // data.coffee += data.totalCPS;
+  updateXPView(data.totalXP);
+  // renderProducers(data);
+  // renderProducersProgress(data);
+  // if (typeof process === "undefined") {
+  //   updateLocalStorage(data);
+  //   const titleTag = document.querySelector("title");
+  //   titleTag.innerText = `${data.coffee} - UO`;
+  // }
 }
 
 function updateLocalStorage(data) {
@@ -202,18 +202,19 @@ function updateLocalStorage(data) {
 
 if (typeof process === "undefined") {
   // Get starting data from the window object
-  // (This comes from data.js)
+
   let data = window.data;
   const fightRetreat = document.querySelector("#fight-retreat");
-  // if (localStorage.savedGame === undefined) updateLocalStorage(data);
-  // else {
-  //   tick((data = JSON.parse(localStorage.savedGame)));
-  //   if (data.buySell === "Sell") buySell.value = "Sell";
-  // }
+  const panelButtons = document.querySelector('#middleTop')
 
-
+  
   const weaponIcon = document.getElementById("weapon_icon");
-  weaponIcon.addEventListener("click", () => clickWeapon(data));
+  weaponIcon.addEventListener("click", () => {
+    clickWeapon(data)
+  
+  });
+
+
 
   // Add an event listener to the container that holds all of the producers
   // Pass in the browser event and our data object to the event listener
@@ -222,15 +223,46 @@ if (typeof process === "undefined") {
     buyButtonClick(event, data);
   });
 
+
+  panelButtons.addEventListener("click", (eventType) => {
+    console.log(eventType.target)
+  })
+
   // Call the tick function passing in the data object once per second
   setInterval(() => tick(data), 1000);
 
+  const nameChange = document.querySelector('#player-name');
+  const okayOrCancel = document.querySelector("#okay-cancel");
+  const modal = document.querySelector('#modal');
+  nameChange.addEventListener('click', () => {
+    modal.style.display = 'block';
+    modal.style.transition = 'display 5s';
+  })
 
+  okayOrCancel.addEventListener('click', (eventType) => {
+    if(eventType.target.id === 'okay') {
+      const newName = document.querySelector('#name-input');
+      if(newName.value.length >= 1) {
+        data.playerName = newName.value;
+        nameChange.textContent = newName.value;
+      }
+    }
+    modal.style.display = 'none'
+  })
 
   fightRetreat.addEventListener("change", (event) => {
     data.fightRetreat = event.target.value;
     tick(data);
   });
+
+
+    // if (localStorage.savedGame === undefined) updateLocalStorage(data);
+  // else {
+  //   tick((data = JSON.parse(localStorage.savedGame)));
+  //   if (data.buySell === "Sell") buySell.value = "Sell";
+  // }
+
+
 }
 
 // Meanwhile, if not in a browser and are instead in node

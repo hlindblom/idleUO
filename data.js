@@ -1,8 +1,10 @@
 window.data = {
   playerName: 'Balthasar',
   lvl: 0, 
-  xp: 0,
-  totalCPS: 0,
+  totalXP: 0,
+  xps: 0,
+  health: 100,
+  mana: 100,
   fightRetreat: 'Fight',
   enemies: [
     {
