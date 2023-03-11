@@ -1,19 +1,34 @@
 {
-  "name": "dom_homework",
+  "name": "idleuo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple clicker game in the style of Ultima Online",
+  "exports": "data.js",
   "scripts": {
     "test": "mocha script_test.js --watch",
-    "start": "http-server . -p 8000 -o -c-1"
+    "start": "nodemon app.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hlindblom/idleUO.git"
+  },
+  "author": "K. Holden Lindblom",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hlindblom/idleUO/issues"
+  },
+  "homepage": "https://github.com/hlindblom/idleUO#readme",
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "http-server": "^14.1.1",
-    "jsdom": "^16.4.0",
+    "chai": "^4.3.7",
+    "chalk": "^4.1.2",
     "mocha": "^10.2.0",
-    "sinon": "^9.2.3"
+    "nodemon": "^2.0.21",
+    "sinon": "^15.0.1"
+  },
+  "dependencies": {
+    "winston": "^3.8.2"
   }
 }
