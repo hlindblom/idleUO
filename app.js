@@ -1,13 +1,9 @@
-import http from "http";
-import chalk from "chalk";
+import http from 'http';
+import chalk from 'chalk';
 import path from 'path';
+import fs from 'fs';
 
-import {logger, logReport} from "./logger/index.js";
-
-import {home, about} from './views/index.js'
-
-
-const hostname = "localhost";
+const hostname = 'localhost';
 const PORT = 1337;
 
 const MIME_TYPES = {
@@ -20,43 +16,63 @@ const MIME_TYPES = {
     gif: 'image/gif',
     ico: 'image/x-icon',
     svg: 'image/svg+xml',
-}
+};
 
+const STATIC_PATH = path.join(process.cwd(), './public');
 
-const STATIC_PATH = path.join(process.cwd(), './public')
+const toBool = [() => true, () => false];
 
+const prepareFile = async (url) => {
+    try {
+        const paths = [STATIC_PATH, url];
+        if (url.endsWith('/')) paths.push('home.html');
+
+        let filePath = path.join(...paths);
+        const pathTraversal = !filePath.startsWith(STATIC_PATH);
+
+        if (filePath.endsWith('about')) filePath += '.html';
+        if (filePath.endsWith('html'))
+            filePath = filePath.replace('public', 'views');
+
+        const exists = await fs.promises.access(filePath).then(...toBool);
+        const found = !pathTraversal && exists;
+        const streamPath = found ? filePath : STATIC_PATH + '/404.html';
+        const ext = path.extname(streamPath).substring(1).toLocaleLowerCase();
+        const stream = fs.createReadStream(streamPath);
+        return { found, ext, stream };
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 const server = http.createServer(async (req, res) => {
-  const { method, url, headers } = req;
-  const userAgent = headers["user-agent"];
-  req.on('error', logReport)
-  res.on('error', logReport)
+    try {
+        const { method, url, headers } = req;
+        const userAgent = headers['user-agent'];
 
-  res.writeHead(200, { "Content-Type": "text/html" });
-  switch (url) {
-    case "/":
-      if (method === "POST") req.pipe(res);
-      else res.end(home());
-      break;
-    default:
-        res.statusCode = 404;
-        logger.info(`404 error`)
-        res.end(`404 Page not Found`);
-  }
+        const file = await prepareFile(url);
+        const statusCode = file.found ? 200 : 404;
+        const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
+        res.writeHead(statusCode, { 'Content-Type': mimeType });
+
+        file.stream.pipe(res).catch;
+    } catch (error) {
+        console.log(error.stack);
+    }
 });
 
 server.listen(PORT, hostname, (error) => {
-    if (error) console.log(
-        chalk.bgRed.bold('ERROR:') +
-        chalk.yellow.bold(`We hit a snag 😱: ${error}`)
-    )
+    if (error)
+        console.log(
+            chalk.bgRed.bold('ERROR:') +
+                chalk.yellow.bold(`We hit a snag 😱: ${error}`)
+        );
     else {
         console.log(
-            chalk.cyan("*\n**\n***\n****\n") +
-              chalk.bgGreen.bold("\n📣 Server Notice:") +
-              chalk.cyan(` ${hostname}:${PORT} `) +
-              chalk.green(`is online! 🥳`)
-          );
+            chalk.cyan('*\n**\n***\n****\n') +
+                chalk.bgGreen.bold('\n📣 Server Notice:') +
+                chalk.cyan(` ${hostname}:${PORT} `) +
+                chalk.green(`is online! 🥳`)
+        );
     }
-
 });

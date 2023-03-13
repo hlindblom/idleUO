@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'uo-font';
-  src: url("font/alagard.ttf");
+  src: url("../font/alagard.ttf");
 }
 
 * {
@@ -11,7 +11,7 @@
 body {
   display: grid;
   grid-template-rows: 2rem 1fr 1.25rem;
-  cursor: url('images/cursors/cursor.gif'), auto;
+  cursor: url('../images/cursors/cursor.gif'), auto;
 }
 
 header {
@@ -30,7 +30,7 @@ footer {
 /* Stone texture for Header and Footer*/
 .stone {
   background-color: black;
-  background-image: url("images/textures/stone-texture.png");
+  background-image: url("../images/textures/stone-texture.png");
   background-size: contain;
   background-repeat: repeat;
   background-position: center;
@@ -59,7 +59,7 @@ footer a, header a {
 }
 
 a:hover{
-  cursor: url("images/cursors/cursor_open.gif"), pointer;
+  cursor: url("../images/cursors/cursor_open.gif"), pointer;
 }
 
 
@@ -72,7 +72,7 @@ main {
 }
 
 .column {
-  background-image: url("images/textures/stone-texture.png");
+  background-image: url("../images/textures/stone-texture.png");
   background-size: cover;
 }
 
@@ -81,7 +81,7 @@ main {
    **************** */
 #column-left {
   grid-column: 1;
-  background-image: url("images/backgrounds/background-left.png");
+  background-image: url("../images/backgrounds/background-left.png");
   background-size: cover;
   background-position: center;
   align-items: flex-start;
@@ -201,7 +201,7 @@ input{
   border: 4px outset #218807b7;
   border-radius: 1rem;
   padding-left: 0.5rem;
-  background-image: url("images/textures/modal-text-input-texture.png");
+  background-image: url("../images/textures/modal-text-input-texture.png");
   box-shadow: 1px 2px 5px rgba(245, 245, 245, 0.377);
   height: 2.5rem;
   width: 65%;
@@ -217,21 +217,21 @@ input{
 
 #cancel:hover {
   filter: brightness(1.25);
-  cursor: url("images/cursors/cursor_open.gif"), pointer;
+  cursor: url("../images/cursors/cursor_open.gif"), pointer;
 }
 
 #okay:hover {
   filter: brightness(1.25);
-  cursor: url("images/cursors/cursor_open.gif"), pointer;
+  cursor: url("../images/cursors/cursor_open.gif"), pointer;
 }
 
 #cancel:active {
-  content: url("images/buttons/cancel-click.png");
-  cursor: url("images/cursors/cursor_fist.gif"), auto;
+  content: url("../images/buttons/cancel-click.png");
+  cursor: url("../images/cursors/cursor_fist.gif"), auto;
 }
 #okay:active {
-  content: url("images/buttons/okay-click.png");
-  cursor: url("images/cursors/cursor_fist.gif"), auto;
+  content: url("../images/buttons/okay-click.png");
+  cursor: url("../images/cursors/cursor_fist.gif"), auto;
 }
 
 
@@ -254,7 +254,7 @@ input{
   grid: 1;
   display: grid;
   grid-template-columns: 1fr 6fr 1fr;
-  background-image: url("images/backgrounds/panel-notification-mod-2.png");
+  background-image: url("../images/backgrounds/panel-notification-mod-2.png");
   background-position: center;
   background-size: contain;
 }
@@ -293,29 +293,29 @@ input{
 
 .menu-button:hover {
   filter: brightness(1.25);
-  cursor: url('images/cursors/cursor_open.gif'), pointer;
+  cursor: url('../images/cursors/cursor_open.gif'), pointer;
 }
 #options:active {
-  content: url("images/buttons/options-click.png");
+  content: url("../images/buttons/options-click.png");
   filter: brightness(0.9);
 }
 
 #journal:active {
-  content: url("images/buttons/journal-click.png");
+  content: url("../images/buttons/journal-click.png");
   filter: brightness(0.9);
 }
 
 #battle-section {
   grid: 3;
   overflow: auto;
-  background-image: url('images/backgrounds/menu-background.png');
+  background-image: url('../images/backgrounds/menu-background.png');
   background-size: cover;
   background-position: top;
 }
 
 .row-divider {
   position: relative;
-  background-image: url("images/textures/dividers/divider-row.png");
+  background-image: url("../images/textures/dividers/divider-row.png");
   background-size: contain;
   background-repeat: repeat-x;
   box-shadow: 0 -1px .4em #191919, 0 1px 0.4em #191919;
@@ -333,7 +333,7 @@ input{
 #column-right {
   grid-column: 5;
   padding-top: 5vh;
-  background-image: url("images/backgrounds/background-store.png");
+  background-image: url("../images/backgrounds/background-store.png");
   background-position: bottom left;
   background-size: cover;
 }
@@ -342,7 +342,7 @@ input{
 .column-divider {
   position: relative;
   z-index: 2;
-  background-image: url("images/textures/dividers/divider-col-right.png");
+  background-image: url("../images/textures/dividers/divider-col-right.png");
   background-repeat: repeat-y;
   background-position: center;
   box-shadow: -1px 0 .4em #191919, 1px 0px 0.4em #191919;
@@ -355,7 +355,7 @@ input{
   padding: 1vh;
   overflow: hidden;
   background-color: #003823;
-  background-image: url('images/producers/rooms/roomOne.png');
+  background-image: url('../images/producers/rooms/roomOne.png');
   background-size: contain;
   background-position: center;
   background-repeat: repeat-x;
