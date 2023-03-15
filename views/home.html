@@ -21,24 +21,26 @@
       </p>
     </header>
     <main>
+      <!-- ***** LEFT COLUMN SECTION ***** -->
       <section class="column" id="column-left">
         <div id="modal">
           <input id="name-input" class="bw-text" type="text" minlength="1" maxlength="12" size="12" value="Balthasar">
           <div id="okay-cancel">
-            <img id="cancel" src="images/buttons/cancel.png" alt="">
-            <img id="okay" src="images/buttons/okay.png" alt="">
+            <img draggable= false id="cancel" src="images/buttons/cancel.png" alt="">
+            <img draggable= false id="okay" src="images/buttons/okay.png" alt="">
           </div>
         </div>
        
         <div id="character-panel">
-          <img id="player-window" src="images/character/character-panel.png" alt="">
-          <img class="player" id="player-hair"src="images/character/male/hair/Long/hair-long-male-brown.png" alt="">
-          <img class="player" id="player-clothes" src="images/character/male/clothes/starting-clothes-male.png" alt="">
-          <img class="player" id="player-weapon" src="images/character/weapons/blunt/weapon-club.png" alt="">
-          <img class="player" id="player-doll" src="images/character/male/male-light.png" alt="">
+          <img draggable= false id="player-window" src="images/character/character-panel.png" alt="">
+          <img draggable= false class="player" id="player-hair"src="images/character/male/hair/Long/hair-long-male-brown.png" alt="">
+          <img draggable= false class="player" id="player-clothes" src="images/character/male/clothes/starting-clothes-male.png" alt="">
+          <img draggable= false class="player" id="player-weapon" src="images/character/weapons/blunt/weapon-club.png" alt="">
+          <img draggable= false class="player" id="player-doll" src="images/character/male/male-light.png" alt="">
           <p class="bw-text" id="player-name">Balthasar</p>
+          
         </div>
-        <img src="images/weapons/clubs/1club.png" id="weapon_icon" />
+        <img draggable= false src="images/weapons/clubs/1club.png" id="weapon-icon" />
         
 
         <div class="bw-text" id="player-info">
@@ -46,16 +48,16 @@
             <div class="status-bar">
               <p>H:</p>
               <div id="health-bar">
-                <img src="images/character/info/bars/health-bar.png" alt="">
+                <img draggable= false src="images/character/info/bars/health-bar.png" alt="">
               </div>
-              <img id="health-base" src="images/character/info/bars/health-bar-base.png" alt="">
+              <img draggable= false id="health-base" src="images/character/info/bars/health-bar-base.png" alt="">
             </div>
             <div class="status-bar">
               <p>M:</p>
               <div id="mana-bar">
-                <img  src="images/character/info/bars/mana-bar.png" alt="">
+                <img draggable= false src="images/character/info/bars/mana-bar.png" alt="">
               </div>
-              <img id="mana-base" src="images/character/info/bars/mana-bar-base.png" alt="">
+              <img draggable= false id="mana-base" src="images/character/info/bars/mana-bar-base.png" alt="">
             </div>
           </div>
           <div id="level-xp">
@@ -65,32 +67,41 @@
               <p><span id="xp_ps-container">0</span> xp/sec</p>
             </div>
           </div>
-          <img id="info-plate" src="images/character/info/player-info.png" alt="">
+          <img draggable= false id="info-plate" src="images/character/info/player-info.png" alt="">
         </div>
 
       </section>
       <div class="column-divider"  id="left-divider"></div>
+
+      <!-- ***** MIDDLE COLUMN SECTION ***** -->
       <section class="column" id="column-middle">
         <div id="middleTop">
           <div class="panel-menu" id="panel-left">
-            <img class="menu-img" id= "menu-img-left" src="images/textures/menu-left.png" alt="">
-            <img class="menu-button" src="images/buttons/options.png" id="options" alt="">
+            <img draggable= false class="menu-img" id= "menu-img-left" src="images/textures/menu-left.png" alt="">
+            <img draggable= false class="menu-button" src="images/buttons/options.png" id="options" alt="">
           </div>
           <div class="wb-text" id="panel-middle">
             Notifications
           </div>
           <div class="panel-menu" id="panel-right">
-            <img class="menu-img" src="images/textures/menu-right.png" alt="">
-            <img class="menu-button" src="images/buttons/journal.png" id="journal" alt="">
+            <img draggable= false class="menu-img" src="images/textures/menu-right.png" alt="">
+            <img draggable= false class="menu-button" src="images/buttons/journal.png" id="journal" alt="">
           </div>
         </div>
         <div class="row-divider" id ="menu-divider"></div>
         <div id="battle-section">
-          <div class="producer-progress" id="chemex"></div>
+          <div class="battle-scene" id="training-scene">
+            <img draggable= false id="player-dummy-scene" class="player-scene" src="images/character/male/animations/idle-static.png" alt="">
+            <img draggable= false id="dummy-scene" class="enemy-scene" src="images/enemies/static/dummy-static.png" alt="">
+          </div>
+          <div class="scene-divider"></div>
+          <div class="battle-scene" id="rat-scene"></div>
 
         </div>
       </section>
       <div class="column-divider" id="right-divider"></div>
+
+      <!-- ***** RIGHT COLUMN SECTION ***** -->
       <section class="column" id="column-right">
         <div class="upgrades"></div>
         <select id="fight-retreat">
@@ -99,14 +110,80 @@
         </select>
 
         <div id="enemies_container">
-          <div class="producer-column">
-            <div class="producer-title">Hi</div>
-            <button type="button" id="buy_${producer.id}">Hello</button>
+          <div class="enemy" id="dummy">
+            <div class="enemy-column">
+              <img draggable= false class="enemy-profile" src="images/enemies/profiles/training-profile.png" alt="">
+              <div>
+                <p class="enemy-title wb-text">Training</p>
+                <div class="cost">
+                  <img draggable= false src="images/character/gold.png" alt="">
+                  <p>5</p>
+                </div>
+              </div>
+            </div>
+              <div class="qty-counter">
+                <p>5</p>
+              </div>
           </div>
-          <div class="producer-column">
-            <div>Quantity: Here</div>
-            <div>Coffee/second: HERE</div>
-            <div class="greenText">Cost: This Much coffee</div>
+          <div class="enemy" id="rats">
+            <div class="enemy-column">
+              <img draggable= false class="enemy-profile" src="images/enemies/profiles/rat-profile.png" alt="">
+              <div>
+                <p class="enemy-title wb-text">Rats</p>
+                <div class="cost">
+                  <img draggable= false src="images/character/gold.png" alt="">
+                  <p>5</p>
+                </div>
+              </div>
+            </div>
+              <div class="qty-counter">
+                <p>5</p>
+              </div>
+          </div>
+          <div class="enemy" id="orcs">
+            <div class="enemy-column">
+              <img draggable= false class="enemy-profile" src="images/enemies/profiles/orc-profile.png" alt="">
+              <div>
+                <p class="enemy-title wb-text">Orcs</p>
+                <div class="cost">
+                  <img draggable= false src="images/character/gold.png" alt="">
+                  <p>5</p>
+                </div>
+              </div>
+            </div>
+              <div class="qty-counter">
+                <p>5</p>
+              </div>
+          </div>
+          <div class="enemy" id="skeletons">
+            <div class="enemy-column">
+              <img draggable= false class="enemy-profile" src="images/enemies/profiles/skeleton-profile.png" alt="">
+              <div>
+                <p class="enemy-title wb-text">Skeletons</p>
+                <div class="cost">
+                  <img draggable= false src="images/character/gold.png" alt="">
+                  <p>5</p>
+                </div>
+              </div>
+            </div>
+              <div class="qty-counter">
+                <p>5</p>
+              </div>
+          </div>
+          <div class="enemy" id="ogres">
+            <div class="enemy-column">
+              <img draggable= false class="enemy-profile" src="images/enemies/profiles/ogre-profile.png" alt="">
+              <div>
+                <p class="enemy-title wb-text">Ogres</p>
+                <div class="cost">
+                  <img draggable= false src="images/character/gold.png" alt="">
+                  <p>5</p>
+                </div>
+              </div>
+            </div>
+              <div class="qty-counter">
+                <p>5</p>
+              </div>
           </div>
         </div>
       </section>

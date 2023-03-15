@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-
 /**************
  *   Clicking & Updating
  **************/
@@ -39,28 +37,6 @@ function makeDisplayNameFromId(id) {
         .join(' ');
 }
 
-function makeProducerDiv(producer, data) {
-    const containerDiv = document.createElement('div');
-    containerDiv.className = 'producer';
-    const displayName = makeDisplayNameFromId(producer.id);
-    let currentCost = producer.price;
-    if (data.buySell === 'Sell') currentCost = Math.floor(currentCost * 0.2);
-
-    const html = `
-  <div class="producer-column">
-    <div class="producer-title">${displayName}</div>
-    <button type="button" id="buy_${producer.id}">${data.buySell}</button>
-  </div>
-  <div class="producer-column">
-    <div>Quantity: ${producer.qty}</div>
-    <div>Coffee/second: ${producer.cps}</div>
-    <div class="greenText">Cost: ${currentCost} coffee</div>
-  </div>
-  `;
-    containerDiv.innerHTML = html;
-    return containerDiv;
-}
-
 function makeProducerProgress(producer) {
     const containerImg = document.createElement('img');
     containerImg.className = 'producerImg';
@@ -89,28 +65,7 @@ function producerNumberCount(qty) {
     return counterDiv;
 }
 
-function renderProducersProgress(data) {
-    const prodProgressContainer =
-        document.querySelectorAll('.producer-progress');
-    const activeProducers = getActiveProducers(data);
-    activeProducers.forEach((prod) => {
-        const prodIdContainer = document.querySelector(`#${prod.id}`);
-
-        try {
-            deleteAllChildNodes(prodIdContainer);
-            if (prod.qty < 13) {
-                for (let i = prod.qty; i > 0; i--) {
-                    prodIdContainer.append(makeProducerProgress(prod.id));
-                }
-            } else {
-                prodIdContainer.append(makeProducerProgress(prod.id));
-                prodIdContainer.append(producerNumberCount(prod.qty));
-            }
-        } catch (err) {
-            // console.log('in progress')
-        }
-    });
-}
+function renderProducersProgress(data) {}
 
 /**************
  *   SLICE 3
@@ -180,19 +135,82 @@ function buyButtonClick(event, data) {
 }
 
 function tick(data) {
-    // data.coffee += data.totalCPS;
     updateXPView(data.totalXP);
-    // renderProducers(data);
-    // renderProducersProgress(data);
-    // if (typeof process === "undefined") {
-    //   updateLocalStorage(data);
-    //   const titleTag = document.querySelector("title");
-    //   titleTag.innerText = `${data.coffee} - UO`;
-    // }
 }
 
-function updateLocalStorage(data) {
-    localStorage.setItem('savedGame', JSON.stringify(data));
+function swingWeapon(playerImg, dummyImg) {
+    if (
+        !playerImg.src.includes('attack.gif') &&
+        !dummyImg.src.includes('dummy-hit.gif')
+    ) {
+        playerImg.src = '/images/character/male/animations/attack.gif';
+        setTimeout(() => {
+            dummyImg.src = '/images/enemies/animations/dummy-hit.gif';
+        }, 100);
+        setTimeout(() => {
+            playerImg.src = '/images/character/male/animations/idle-static.png';
+        }, 400);
+        setTimeout(() => {
+            dummyImg.src = '/images/enemies/static/dummy-static.png';
+        }, 500);
+    }
+}
+
+function dropLoot(scene) {
+    if (Math.floor(Math.random() * 100 + 1) < 5) {
+        const loot = document.createElement('img');
+        loot.className = 'loot';
+        loot.src = 'images/enemies/loot/gold.png';
+        loot.draggable = false;
+        loot.style.left = `${Math.random() * (11 - 7 + 1) + 7}rem`;
+        loot.style.top = `${Math.random() * (6.5 - 5 + 1) + 5}rem`;
+        scene.append(loot);
+    }
+}
+
+function dragElement(elmnt) {
+    var pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0;
+    if (document.getElementById(elmnt.id + 'header')) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + 'header').onmousedown =
+            dragMouseDown;
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = elmnt.offsetTop - pos2 + 'px';
+        elmnt.style.left = elmnt.offsetLeft - pos1 + 'px';
+    }
+
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
 }
 
 /*************************
@@ -200,30 +218,44 @@ function updateLocalStorage(data) {
  *************************/
 
 if (typeof process === 'undefined') {
-    // Get starting data from the window object
-
     let data = window.data;
+
     const fightRetreat = document.querySelector('#fight-retreat');
     const panelButtons = document.querySelector('#middleTop');
 
-    const weaponIcon = document.getElementById('weapon_icon');
+    /*******************\
+    |*** LEFT COLUMN ***|
+    \*******************/
+    const weaponIcon = document.getElementById('weapon-icon');
+    const playerImg = document.querySelector('#player-dummy-scene');
+    const dummyImg = document.querySelector('#dummy-scene');
+    const trainingScene = document.querySelector('#training-scene');
+    const leftColumn = document.querySelector('#column-left');
+
+    dragElement(document.getElementById('character-panel'));
+    dragElement(document.getElementById('weapon-icon'));
+    dragElement(document.getElementById('player-info'));
+
     weaponIcon.addEventListener('click', () => {
         clickWeapon(data);
+        swingWeapon(playerImg, dummyImg);
+        dropLoot(trainingScene);
     });
 
-    // Add an event listener to the container that holds all of the producers
-    // Pass in the browser event and our data object to the event listener
-    const producerContainer = document.getElementById('producer_container');
-    producerContainer.addEventListener('click', (event) => {
-        buyButtonClick(event, data);
+    /*******************\
+    |*** RIGHT COLUMN **|
+    \*******************/
+    const battleSection = document.querySelector('#battle-section');
+    battleSection.addEventListener('click', (event) => {
+        if (event.target.attributes.class.value === 'loot') {
+            event.target.remove();
+            data.gold++;
+        }
     });
 
     panelButtons.addEventListener('click', (eventType) => {
         console.log(eventType.target);
     });
-
-    // Call the tick function passing in the data object once per second
-    setInterval(() => tick(data), 1000);
 
     const nameChange = document.querySelector('#player-name');
     const okayOrCancel = document.querySelector('#okay-cancel');
@@ -249,14 +281,10 @@ if (typeof process === 'undefined') {
         tick(data);
     });
 
-    // if (localStorage.savedGame === undefined) updateLocalStorage(data);
-    // else {
-    //   tick((data = JSON.parse(localStorage.savedGame)));
-    //   if (data.buySell === "Sell") buySell.value = "Sell";
-    // }
+    setInterval(() => tick(data), 1000);
 }
 
-// Meanwhile, if not in a browser and are instead in node
+// Exports for Node
 else if (process) {
     module.exports = {
         updateXPView,

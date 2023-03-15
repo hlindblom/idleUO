@@ -1,9 +1,10 @@
 @font-face {
   font-family: 'uo-font';
-  src: url("../font/alagard.ttf");
+  src: url("/font/alagard.ttf");
 }
 
 * {
+  cursor: url('/images/cursors/UO-Gauntlet.png'), auto;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -11,7 +12,9 @@
 body {
   display: grid;
   grid-template-rows: 2rem 1fr 1.25rem;
-  cursor: url('../images/cursors/cursor.gif'), auto;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 header {
@@ -59,14 +62,14 @@ footer a, header a {
 }
 
 a:hover{
-  cursor: url("../images/cursors/cursor_open.gif"), pointer;
+  cursor: url('/images/cursors/UO-Help.png'), pointer;
 }
 
 
 main {
   grid: 2;
   display: grid;
-  grid-template-columns: 1fr 1.25rem 2fr 1.25rem 1fr;
+  grid-template-columns: 1.35fr 1.25rem 2.5fr 1.25rem 1fr;
   font-family: 'uo-font', Georgia, serif;
   background-color: grey;
 }
@@ -89,7 +92,7 @@ main {
 }
 
 #character-panel {
-  position: relative;
+  position: absolute;
 }
 
 #player-hair {
@@ -114,17 +117,35 @@ main {
   font-size: 1.75rem;
 }
 
-#weapon_icon {
+#player-name:hover {
+  cursor: url('/images/cursors/UO-text.png'), text;
+}
+
+#weapon-icon {
   position: absolute;
   border-radius: 1rem;
+  border: 0.5rem outset black;
   top: 6rem;
   right: 3rem;
   height: 8rem;
 }
+#weapon-icon:hover {
+  filter: brightness(1.25);
+  cursor: url('/images/cursors/UO-Attack-Mode.png'),crosshair;
+  box-shadow: 0.1rem 0.1rem 0.5rem #a51c319d;
+}
+#weapon-icon:active{
+  filter: brightness(0.5);
+  box-shadow: 0.1rem 0.1rem 0.5rem black;
+  border: 0.5rem inset black;
+}
+
 
 #player-info {
-  position: relative;
+  z-index: 10;
+  position: absolute;
   font-size: 1.35rem;
+  top: 25rem;
 }
 
 #health-mana {
@@ -321,6 +342,38 @@ input{
   box-shadow: 0 -1px .4em #191919, 0 1px 0.4em #191919;
 }
 
+.battle-scene{
+  position: relative;
+  height: 9.5rem;
+}
+#training-scene{
+  background-image: url('../images/enemies/rooms/dummy-scene.png');
+  background-size: cover;
+}
+
+.scene-divider {
+  position: relative;
+  height: 1rem;
+  background-image: url('../images/textures/scene-divider.png');
+  background-size: contain;
+  background-repeat: repeat-x;
+}
+.player-scene {
+  position: absolute;
+  left: 5rem;
+  top: 1rem;
+}
+.enemy-scene {
+  position: absolute;
+  left: 8.5rem;
+  top: 1rem;
+}
+.loot {
+  position: absolute;
+}
+.loot:hover {
+  cursor: url('/images/cursors/UO-precision.png') ,pointer;
+}
 /* RIGHT DIVIDER */
 #right-divider {
   grid-column: 4;
@@ -332,7 +385,7 @@ input{
 
 #column-right {
   grid-column: 5;
-  padding-top: 5vh;
+  padding-top: 6rem;
   background-image: url("../images/backgrounds/background-store.png");
   background-position: bottom left;
   background-size: cover;
@@ -348,15 +401,58 @@ input{
   box-shadow: -1px 0 .4em #191919, 1px 0px 0.4em #191919;
 }
 
-
-.producer-progress {
+.enemy {
   display: flex;
-  height: 15vh;
-  padding: 1vh;
-  overflow: hidden;
-  background-color: #003823;
-  background-image: url('../images/producers/rooms/roomOne.png');
+  position: relative;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 5rem;
+  background-color: #191919;
+  background-image: url('/images/textures/rock-texture-new.png');
+  background-repeat: repeat;
   background-size: contain;
-  background-position: center;
-  background-repeat: repeat-x;
+  border: 0.75rem outset rgba(228, 228, 228, 0.5);
+}
+
+.enemy:hover {
+  filter: brightness(1.25);
+  cursor: url('/images/cursors/UO-Attack-Mode.png'), pointer;
+}
+.enemy:active {
+  filter: brightness(0.5);
+  border: 0.75rem inset rgba(228, 228, 228, 0.5);
+}
+
+.enemy-profile{
+  filter: grayscale(70%);
+  margin-top: -0.15rem;
+  margin-left: -0.15rem;
+  border: 0.2rem inset grey;
+  border-radius: 0.5rem;
+  height: 4rem;
+}
+
+.enemy-column {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.enemy-title {
+  font-size: 2rem;
+}
+
+.cost {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.qty-counter {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  color: #19191986;
 }
