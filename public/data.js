@@ -12,7 +12,7 @@ window.data = {
             id: 'training',
             price: 10,
             basePrice: 10,
-            unlocked: false,
+            unlocked: true,
             cps: 1,
             qty: 0,
         },
@@ -65,7 +65,7 @@ window.data = {
             qty: 0,
         },
         {
-            id: 'trolls',
+            id: 'troll',
             price: 10000,
             basePrice: 10000,
             unlocked: false,

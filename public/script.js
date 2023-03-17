@@ -157,7 +157,7 @@ function swingWeapon(playerImg, dummyImg) {
 }
 
 function dropLoot(scene) {
-    if (Math.floor(Math.random() * 100 + 1) < 5) {
+    if (Math.floor(Math.random() * 100 + 1) < 20) {
         const loot = document.createElement('img');
         loot.className = 'loot';
         loot.src = 'images/enemies/loot/gold.png';
@@ -212,6 +212,53 @@ function dragElement(elmnt) {
         document.onmousemove = null;
     }
 }
+function createEnemyButtons(data) {
+    const enemyContainer = document.querySelector('#enemies_container');
+    data.enemies.forEach((enemy) => {
+        const div = document.createElement('div');
+        div.setAttribute('id', enemy.id);
+        div.className = 'enemy';
+        const html = `
+            <div class="enemy-column">
+              <img draggable= false class="enemy-profile" src="images/enemies/profiles/${
+                  enemy.id
+              }-profile.png" alt="Picture of ${enemy.id}">
+              <div>
+                <p class="enemy-title wb-text">${enemy.id.replace('-', ' ')}${
+            enemy.id === 'training' ? '' : 's'
+        }</p>
+                <div class="cost">
+                  <img draggable= false src="images/character/gold.png" alt="">
+                  <p>${enemy.price.toLocaleString('en-US')}</p>
+                </div>
+              </div>
+            </div>
+              <div class="qty-counter">
+                <p>${enemy.qty}</p>
+              </div>
+        `;
+        div.innerHTML = html;
+        enemyContainer.append(div);
+    });
+}
+
+function createEnemyScene(data) {
+    const battleSection = document.querySelector('#battle-section');
+    data.enemies.forEach((enemy) => {
+        if (enemy.id === 'training') return;
+        const div = document.createElement('div');
+        div.setAttribute('id', `${enemy.id}-container`);
+        div.className = 'battle-scene';
+        div.style.backgroundImage = `url(images/enemies/rooms/${enemy.id}-scene.png)`;
+        html = `
+            <img draggable= false id="player-${enemy.id}-scene" class="player-scene" src="images/character/male/animations/idle-static.png" alt="">
+            <img draggable= false id="${enemy.id}-scene" class="enemy-scene" src="images/enemies/static/${enemy.id}-static.png" alt="">
+            <div class="scene-divider"></div>
+        `;
+        div.innerHTML = html;
+        battleSection.append(div);
+    });
+}
 
 /*************************
  *  Start your engines!
@@ -219,6 +266,8 @@ function dragElement(elmnt) {
 
 if (typeof process === 'undefined') {
     let data = window.data;
+    createEnemyButtons(data);
+    createEnemyScene(data);
 
     const fightRetreat = document.querySelector('#fight-retreat');
     const panelButtons = document.querySelector('#middleTop');

@@ -8,13 +8,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  
 }
 body {
+  height: 100vh;
   display: grid;
   grid-template-rows: 2rem 1fr 1.25rem;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+  
 }
 
 header {
@@ -257,6 +260,10 @@ input{
 
 
 /* LEFT DIVIDER */
+#column-left {
+  height: 100vh;
+}
+
 #left-divider {
   grid-column: 2;
 }
@@ -265,14 +272,13 @@ input{
    * MIDDLE COLUMN *
    ***************** */
 
-#column-middle {
-  grid-column: 3;
-  display: grid;
-  grid-template-rows: 1fr 1.25rem 9fr;
-}
+
 /* TOP MENU PANEL*/
+#column-middle {
+  height: 100vh;
+}
+
 #middleTop {
-  grid: 1;
   display: grid;
   grid-template-columns: 1fr 6fr 1fr;
   background-image: url("../images/backgrounds/panel-notification-mod-2.png");
@@ -327,8 +333,8 @@ input{
 }
 
 #battle-section {
-  grid: 3;
-  overflow: auto;
+  height: 89%;
+  overflow: scroll;
   background-image: url('../images/backgrounds/menu-background.png');
   background-size: cover;
   background-position: top;
@@ -361,8 +367,13 @@ input{
 .player-scene {
   position: absolute;
   left: 5rem;
-  top: 1rem;
+  top: 3rem;
 }
+.control {
+  top: 1rem;
+  left: 5rem;
+}
+
 .enemy-scene {
   position: absolute;
   left: 8.5rem;
@@ -384,6 +395,7 @@ input{
    **************** */
 
 #column-right {
+  height: 100vh;
   grid-column: 5;
   padding-top: 6rem;
   background-image: url("../images/backgrounds/background-store.png");
@@ -400,7 +412,10 @@ input{
   background-position: center;
   box-shadow: -1px 0 .4em #191919, 1px 0px 0.4em #191919;
 }
-
+#enemies_container {
+  height: 100%;
+  overflow: scroll;
+}
 .enemy {
   display: flex;
   position: relative;
